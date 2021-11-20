@@ -1,0 +1,51 @@
+name: pytorch-hcs
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+  - defaults
+dependencies:
+  - python
+
+  - numpy
+  - scipy
+  - scikit-image
+  - pandas
+  - pyjanitor
+
+  # - opencv
+
+  - holoviews
+  - hvplot
+  - datashader
+  - panel
+
+  - jupyterlab
+  - pyviz_comms
+  - ipywidgets
+
+  # - umap-learn  # until supervised densmap officially released
+  - hdbscan
+
+  - wandb
+
+  - pytorch
+  - torchvision
+  - cudatoolkit
+  - pytorch-lightning
+
+  - h5py
+  - pyarrow
+
+  - pylint
+  - mypy
+  - flake8
+  - pre-commit
+  - black
+
+  - pip
+  - pip:
+    - opencv-python
+    - git+https://github.com/lmcinnes/umap.git
+    - git+https://github.com/zbarry/pybbbc.git
+    - '-e .'
