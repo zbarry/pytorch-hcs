@@ -51,7 +51,7 @@ bbbc021[0]
 
 ### Python package
 
-Reusable code modules are found in the `pytorch_hcs` package. 
+Reusable code modules are found in the `pytorch_hcs` package.
 
 ### Notebooks
 
@@ -67,3 +67,9 @@ Notebook order of execution:
 
 Extras:
 * dataset_cleaning_visualization.ipynb
+
+## Development
+
+Install pre-commit hooks
+
+`pre-commit install`
