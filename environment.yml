@@ -24,7 +24,7 @@ dependencies:
   - pyviz_comms
   - ipywidgets
 
-  # - umap-learn  # until supervised densmap officially released
+  - umap-learn
   - hdbscan
 
   - wandb
@@ -46,6 +46,5 @@ dependencies:
   - pip
   - pip:
     - opencv-python
-    - git+https://github.com/lmcinnes/umap.git
     - git+https://github.com/zbarry/pybbbc.git
     - '-e .'
