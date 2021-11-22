@@ -47,29 +47,51 @@ bbbc021 = BBBC021()
 bbbc021[0]
 ```
 
+There are a lot of files to download.
+Plan on this process taking hours.
+
 ## Project structure
+
+### Key dependencies
+
+- PyTorch and PyTorch-Lightning
+- Weights and Biases
 
 ### Python package
 
 Reusable code modules are found in the `pytorch_hcs` package.
 
+* `datasets.py` - PyTorch dataset and PyTorch-Lightning DataModule for working with BBBC021 data.
+* `models.py` - PyTorch-Lightning modules wrapping CNN models.
+* `transforms.py` - image transforms for data augmentation.
+* `vis.py` - helper functions for visualization with HoloViews.
+
 ### Notebooks
 
 The code that orchestrates the modules found in the Python package is in notebooks in the `notebooks/` folder.
 
-Notebook order of execution:
+#### Notebook order of execution:
 
-1. download_bbbc021.ipynb
-2. bbbc021_visualization.ipynb
-3. train_model.ipynb
-4. evaluate_model.ipynb
-5. umap_param_sweep.ipynb
+1. `01_download_bbbc021.ipynb`
+2. `02_bbbc021_visualization.ipynb`
+3. `03_train_model.ipynb`
+4. `04_evaluate_model.ipynb`
+5. `05_visualize_outliers.ipynb`
 
-Extras:
-* dataset_cleaning_visualization.ipynb
+#### Extras:
+
+* `dataset_cleaning_visualization.ipynb`
+* `umap_param_sweep.ipynb`
 
 ## Development
 
-Install pre-commit hooks
+### Install pre-commit hooks
 
 `pre-commit install`
+
+### Ways to contribute
+
+- Decrease plate effects on embeddings (e.g., through adversarial learning)
+- Add hyperparameter sweep capability using Weights and Biases
+- Log model test set evaluation results to W&B
+- Move BBBC021 dataset to [ActiveLoop Hub](https://docs.activeloop.ai/) to speed up download / dataset prep times

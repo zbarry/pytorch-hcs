@@ -19,14 +19,28 @@ class ClassificationModel(pl.LightningModule):
     implements generic training / validation / test steps.
 
     NOTE: Models must implement the keyword arguments in the __init__ docstring
+
+    Subclasses should also implement:
+    - `.model` - a PyTorch `nn.Module` whose `.forward()` returns embeddings that
+        would feed into the final classification layer.
+    - `.model.classifier` - the final classification head layer(s). Should be
+        disconnected from the rest of the layers and will be called manually in
+        `ClassificationModel.forward()`.
     """
 
     def __init__(self):
         """
-        Implement the following keyword arguments in your subclass.
+        Implement the following keyword arguments in your subclass
+        if you wish to use the default optimizer configuration.
+        Otherwise, you can override `configure_optimizers` in your subclass.
 
         Whatever named keyword arguments your __init__ accepts will be saved to
         the saved checkpoint (.ckpt) file.
+
+        These parameters are accessible via the `.hparams` instance attribute:
+        ```
+        num_classes = model.hparams.num_classes
+        ```
 
         Args:
             num_classes: Number of classes.
@@ -199,23 +213,6 @@ class ResNet18Embeddings(ClassificationModel):
 
         model.fc = nn.Identity()
 
-        # first working version
-        # model.classifier = nn.Sequential(
-        #     nn.Dropout(p=0.5),
-        #     nn.Linear(
-        #         num_channels * in_features,
-        #         in_features,
-        #         bias=False,
-        #     ),
-        #     nn.BatchNorm1d(in_features),
-        #     nn.ReLU(inplace=True),
-        #     # nn.Dropout(p=0.5),
-        #     nn.Linear(
-        #         in_features=in_features,
-        #         out_features=self.hparams.num_classes,
-        #     ),
-        # )
-
         model.classifier = nn.Sequential(
             nn.Dropout(p=0.7),
             nn.Linear(num_channels * in_features, in_features, bias=False,),
@@ -240,73 +237,6 @@ class ResNet18Embeddings(ClassificationModel):
             all_features.append(features)
 
         return torch.cat(all_features, 1)
-
-    def forward(self, x):  # pylint: disable=arguments-differ
-        features = self.compute_features(x)
-
-        return self.model.classifier(features)
-
-
-class ResNet50Embeddings(ClassificationModel):
-    """
-    Sequentially operate on input channels independently and merge later.
-    """
-
-    def __init__(
-        self,
-        *,
-        num_classes: int,
-        num_channels: int,
-        learning_rate: float = 0.001,
-        lambdalr_factor: float = 0.9,
-        plateau_patience: int = 5,
-        plateau_factor: float = 0.2,
-        train_class_weights=None,
-        val_class_weights=None,
-        test_class_weights=None,
-        pretrained: bool = False,
-    ):
-        super().__init__()
-
-        model = resnet50(
-            pretrained=self.hparams.pretrained, norm_layer=nn.InstanceNorm2d
-        )
-
-        # disable last fully-connected layer so we can extract features later
-
-        in_features = model.fc.in_features
-
-        model.fc = nn.Identity()
-
-        model.classifier = nn.Sequential(
-            nn.Dropout(p=0.25),
-            nn.Linear(num_channels * in_features, in_features, bias=False,),
-            nn.BatchNorm1d(in_features),
-            nn.ReLU(inplace=True),
-            # nn.Dropout(p=0.2),
-            nn.Linear(
-                in_features=in_features, out_features=self.hparams.num_classes,
-            ),
-        )
-
-        self.model = model
-
-    def compute_features(self, x):
-        all_features = []
-
-        for channel_idx in range(x.shape[1]):
-            x_channel = x[:, channel_idx, ...].unsqueeze(1).tile(1, 3, 1, 1)
-
-            features = self.model(x_channel)
-
-            all_features.append(features)
-
-        return torch.cat(all_features, 1)
-
-    def forward(self, x):  # pylint: disable=arguments-differ
-        features = self.compute_features(x)
-
-        return self.model.classifier(features)
 
 
 class ResNet101(ClassificationModel):
