@@ -4,7 +4,10 @@ Prediction of drug mechanism-of-action (MoA) from high content screening images.
 
 ## Background
 
-![](https://data.broadinstitute.org/bbbc/BBBC021/aurora-kinase-inhibitor.png)
+![](https://data.broadinstitute.org/bbbc/BBBC021/aurora-kinase-inhibitor.png | width=100)
+![](https://data.broadinstitute.org/bbbc/BBBC021/tubulin-stabilizer.png)
+
+<img src="https://data.broadinstitute.org/bbbc/BBBC021/tubulin-stabilizer.png" width="200" />
 
 Example image from [BBBC021](https://bbbc.broadinstitute.org/BBBC021) dataset
 used in this work.
@@ -81,7 +84,7 @@ The code that orchestrates the modules found in the Python package is in noteboo
 #### Extras:
 
 * `dataset_cleaning_visualization.ipynb`
-* `umap_param_sweep.ipynb`
+* `notebooks/analysis/umap_param_sweep.ipynb`
 
 ## Development
 
