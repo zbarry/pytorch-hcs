@@ -24,9 +24,9 @@ tl;dr:
 - Human breast cancer cell line (MCF-7) treated with various compounds of both known and unknown MoA.
 - Following treatment, cells are stained for their nuclei (blue) and the cytoskeletal proteins tubulin (green) and actin (red).
 
-<img src="https://data.broadinstitute.org/bbbc/BBBC021/aurora-kinase-inhibitor.png" width="200" />
-<img src="https://data.broadinstitute.org/bbbc/BBBC021/tubulin-stabilizer.png" width="200" />
-<img src="https://data.broadinstitute.org/bbbc/BBBC021/monoaster.png" width="200" />
+| Aurora kinase inhibitor | Tubulin stabilizer | Eg5 inhibitor |
+|-------------------------|--------------------|---------------|
+|<img src="https://data.broadinstitute.org/bbbc/BBBC021/aurora-kinase-inhibitor.png" width="200" />|<img src="https://data.broadinstitute.org/bbbc/BBBC021/tubulin-stabilizer.png" width="200" /> | <img src="https://data.broadinstitute.org/bbbc/BBBC021/monoaster.png" width="200" /> |
 
 Example images from BBBC021.
 
@@ -125,4 +125,5 @@ These will clear notebook outputs as well as run code formatters upon commit.
 - Decrease plate effects on embeddings (e.g., through adversarial learning).
 - Add hyperparameter sweep capability using Weights and Biases / improve model classification performance.
 - Log model test set evaluation results to W&B.
+- Make better use of W&B in general for tracking results.
 - Move BBBC021 dataset to [ActiveLoop Hub](https://docs.activeloop.ai/) to speed up download / dataset prep times.
