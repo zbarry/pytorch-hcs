@@ -1,24 +1,42 @@
 # pytorch-hcs
 
 Prediction of drug mechanism-of-action (MoA) from high content screening images
-using convolutional neural networks.
+using convolutional neural networks and use of image embeddings to find outliers/novel images.
 
 ## Background
+
+### High content screening / imaging
+
+Fluorescence microscopy is a core tool in biological and drug discovery.
+High content screening automates fluorescence microscopy on a mass scale,
+allowing researchers to understand the impact of thousands of perturbations
+on cellular morphology and health in a single assay.
+Screens specifically focused on treatment of cells with biologically active molecules / drugs
+can lend insight into the function of those compounds based on how they modulate the imaged cellular structures.
+Functional insights can lead to identification of compound "hits" for potential drug candidates.
 
 ### BBBC021 dataset
 
 See the [BBBC021 landing page](https://bbbc.broadinstitute.org/BBBC021) for more info on the dataset.
 
-<img src="https://data.broadinstitute.org/bbbc/BBBC021/aurora-kinase-inhibitor.png" width="250" />
-<img src="https://data.broadinstitute.org/bbbc/BBBC021/tubulin-stabilizer.png" width="250" />
-<img src="https://data.broadinstitute.org/bbbc/BBBC021/monoaster.png" width="250" />
+tl;dr:
+
+- Human breast cancer cell line (MCF-7) treated with various compounds of both known and unknown MoA.
+- Following treatment, cells are stained for their nuclei (blue) and the cytoskeletal proteins tubulin (green) and actin (red).
+
+<img src="https://data.broadinstitute.org/bbbc/BBBC021/aurora-kinase-inhibitor.png" width="200" />
+<img src="https://data.broadinstitute.org/bbbc/BBBC021/tubulin-stabilizer.png" width="200" />
+<img src="https://data.broadinstitute.org/bbbc/BBBC021/monoaster.png" width="200" />
 
 Example images from BBBC021.
 
-### The task
+### Project goals
 
 - Given a multi-channel fluorescence image of MCF-7 cells,
-predict the mechanism-of-action of the compound the cells were treated with.
+train a convolutional neural network to predict the mechanism-of-action of the compound the cells were treated with.
+- Use the trained CNN to extract image embeddings.
+- Perform UMAP dimensionality reduction on embeddings for dataset visualization and exploration.
+- Find interesting / artifactual image outliers in the BBBC021 dataset using image embeddings.
 
 ## Getting started
 
@@ -65,8 +83,8 @@ Plan on this process taking hours.
 
 ### Key dependencies
 
-- PyTorch and PyTorch-Lightning - PTL reduces training boilerplate.
-- Weights and Biases - stores our training runs and model checkpoints.
+- PyTorch and [PyTorch-Lightning](https://www.pytorchlightning.ai/) - PTL reduces training boilerplate.
+- [Weights and Biases](wandb.ai) - stores training runs and model checkpoints.
 
 ### Python package
 
@@ -90,12 +108,15 @@ The code that orchestrates the modules found in the Python package is in noteboo
 
 #### Extras:
 
-* `dataset_cleaning_visualization.ipynb`
-* `notebooks/analysis/umap_param_sweep.ipynb`
+* `dataset_cleaning_visualization.ipynb` - manually step through BBBC021 with a Panel visualization
+to label images in the training and validation sets as "good" or "bad"
+* `notebooks/analysis/umap_param_sweep.ipynb` - sweep through UMAP parameterizations to assess impact on resulting embeddings.
 
 ## Development
 
 ### Install pre-commit hooks
+
+These will clear notebook outputs as well as run code formatters upon commit.
 
 `pre-commit install`
 
