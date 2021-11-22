@@ -98,18 +98,18 @@ Reusable code modules are found in the `pytorch_hcs` package.
 
 The code that orchestrates the modules found in the Python package is in notebooks in the `notebooks/` folder.
 
-#### Notebook order of execution:
+#### Available notebooks (by order of execution):
 
-1. `01_download_bbbc021.ipynb`
-2. `02_bbbc021_visualization.ipynb`
-3. `03_train_model.ipynb`
-4. `04_evaluate_model.ipynb`
-5. `05_visualize_outliers.ipynb`
+1. `01_download_bbbc021.ipynb` - download raw BBBC021 images and pre-process them using pybbbc.
+2. `02_bbbc021_visualization.ipynb` - explore the BBBC021 dataset with an interactive visualization.
+3. `03_train_model.ipynb` - train a CNN to predict MoA from BBBC021 images.
+4. `04_evaluate_model.ipynb` - evaluate performance of trained CNN on test set.
+5. `05_visualize_outliers.ipynb` - produce image embeddings, UMAP them, visualize and final outliers.
 
 #### Extras:
 
-* `dataset_cleaning_visualization.ipynb` - manually step through BBBC021 with a Panel visualization
-to label images in the training and validation sets as "good" or "bad"
+* `dataset_cleaning_visualization.ipynb` - manually step through BBBC021 with a visualization
+to label images in the training and validation sets as "good" or "bad".
 * `notebooks/analysis/umap_param_sweep.ipynb` - sweep through UMAP parameterizations to assess impact on resulting embeddings.
 
 ## Development
