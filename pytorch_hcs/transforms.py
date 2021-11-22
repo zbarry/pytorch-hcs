@@ -73,7 +73,6 @@ def random_gauss_noise(im):
         np.array([0, 0, 0])
         if random.random() > 0.7
         else np.array([sigma_max, sigma_max, sigma_max])
-        # else np.random.uniform(0, sigma_max, 3)
     )
 
     return np.clip(

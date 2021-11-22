@@ -16,8 +16,11 @@ from .transforms import aug_transform, transform
 class BBBC021Dataset(Dataset):
     """
     Attributes:
-        moa_df:
-        image_df:
+        moa_df: DatadFrame listing the unique experimental conditions in the
+            screen.
+        image_df: DataFrame where each row contains all the metadata for a
+            corresponding image in the BBBC021 dataset (or subset given
+            `image_idcs` you have init'd with).
     """
 
     def __init__(
@@ -27,7 +30,8 @@ class BBBC021Dataset(Dataset):
     ):
         """
         Args:
-            image_idcs:
+            image_idcs: BBBC021 image indices to include in this dataset.
+                Default `None` includes all.
             transform: image transformation / augmentation function that
                 takes a NumPy array and returns a PyTorch tensor.
         """
@@ -186,12 +190,18 @@ class BBBC021DataModule(pl.LightningDataModule):
         self.all_moa_dataset: BBBC021Dataset = None  # type: ignore
 
     @staticmethod
-    def split(dmso_train_frac=0.5, dmso_val_frac=0.35):
+    def split(
+        dmso_train_frac=0.5, dmso_val_frac=0.35
+    ) -> Dict[str, np.ndarray]:
         """
-        TODO: change this around to take in a function that recieves the
-        image_df and adds a split_assignment column
-
-        Save the image_idx column from the returned dataframe view.
+        Splits BBBC021 dataset such that:
+        - No plate from DMSO (control) group is used in more than one of the
+            train/val/test splits
+        - Each compound is only used in one of the splits
+        - Train/val/test splits get one compound each from a given MoA and
+            if there is a leftover, train split gets the extra.
+            There are two MoAs with only two compounds and therefore those
+            MoAs are only split into train/val.
         """
         bbbc021 = BBBC021(moa=[moa for moa in BBBC021.MOA if moa != "null"])
 

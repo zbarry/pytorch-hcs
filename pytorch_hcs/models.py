@@ -10,7 +10,7 @@ import pytorch_lightning as pl
 import torch
 import torch.nn as nn
 from torch.optim.lr_scheduler import LambdaLR, ReduceLROnPlateau
-from torchvision.models import resnet18, resnet50, resnet101
+from torchvision.models import resnet18, resnet101
 
 
 class ClassificationModel(pl.LightningModule):
@@ -22,7 +22,7 @@ class ClassificationModel(pl.LightningModule):
 
     Subclasses should also implement:
     - `.model` - a PyTorch `nn.Module` whose `.forward()` returns embeddings that
-        would feed into the final classification layer.
+        would feed into its final classification layer.
     - `.model.classifier` - the final classification head layer(s). Should be
         disconnected from the rest of the layers and will be called manually in
         `ClassificationModel.forward()`.
