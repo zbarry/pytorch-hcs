@@ -1,7 +1,7 @@
 # pytorch-hcs
 
-Prediction of drug mechanism-of-action (MoA) from high content screening images
-using convolutional neural networks and use of image embeddings to find outliers/novel images.
+Convolutional neural network-based prediction of drug mechanism-of-action (MoA) from high content screening images
+and use of CNN image embeddings to find outliers/novel images.
 
 ## Background
 
