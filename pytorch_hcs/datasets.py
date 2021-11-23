@@ -5,6 +5,7 @@ Classes for working with PyTorch Dataloaders and PyTorch-Lightning DataModules
 
 from typing import Callable, Dict
 
+import janitor
 import numpy as np
 import pytorch_lightning as pl
 from pybbbc import BBBC021
@@ -43,10 +44,13 @@ class BBBC021Dataset(Dataset):
 
         self.image_idcs = image_idcs
 
-        self.moa_df = self.bbbc021.moa_df
         self.image_df = self.bbbc021.image_df.query(
             "image_idx in @image_idcs"
         ).reset_index(drop=True)
+
+        self.moa_df = self.image_df[
+            ["compound", "concentration", "moa", "plate"]
+        ].drop_duplicates()
 
         self.transform = transform
 
