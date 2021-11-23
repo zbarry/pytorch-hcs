@@ -65,10 +65,11 @@ class BBBC021Dataset(Dataset):
         Return a dictionary mapping the integer class index to the
         human-readable class name as a string.
 
-        NOTE: Depending on train/val/test split, not all classes might be
-            represented.
+        `self.bbbc021.moa_df` is used instead of `self.moa_df` here
+        so that integer labels are the same regardless of whether
+        the test split has all classes (matters for test set).
         """
-        moas = self.moa_df.sort_values("moa")["moa"].unique()
+        moas = self.bbbc021.moa_df.sort_values("moa")["moa"].unique()
         moas = moas[moas != "null"]
 
         mapping = {moa: idx for idx, moa in enumerate(moas)}
