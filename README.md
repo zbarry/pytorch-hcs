@@ -104,7 +104,7 @@ The code that orchestrates the modules found in the Python package is in noteboo
 2. `02_bbbc021_visualization.ipynb` - explore the BBBC021 dataset with an interactive visualization.
 3. `03_train_model.ipynb` - train a CNN to predict MoA from BBBC021 images.
 4. `04_evaluate_model.ipynb` - evaluate performance of trained CNN on test set.
-5. `05_visualize_outliers.ipynb` - produce image embeddings, UMAP them, visualize and final outliers.
+5. `05_visualize_embeddings.ipynb` - produce image embeddings, UMAP them, visualize and find outliers.
 
 #### Extras:
 
