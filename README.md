@@ -127,3 +127,4 @@ These will clear notebook outputs as well as run code formatters upon commit.
 - Log model test set evaluation results to W&B.
 - Make better use of W&B in general for tracking results.
 - Move BBBC021 dataset to [ActiveLoop Hub](https://docs.activeloop.ai/) to speed up download / dataset prep times.
+- Try out a k-fold cross validation strategy.
